@@ -17,6 +17,10 @@ const Contact = () => {
 	const [done, setDone] = useState(false);
 	const theme = useContext(ThemeContext);
 	const darkMode = theme.state.darkMode;
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [subject, setSubject] = useState("");
+	const [message, setMessage] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -31,6 +35,10 @@ const Contact = () => {
 				(result) => {
 					console.log(result.text);
 					setDone(true);
+					setName("");
+					setEmail("");
+					setSubject("");
+					setMessage("");
 				},
 				(error) => {
 					console.log(error.text);
@@ -78,24 +86,38 @@ const Contact = () => {
 							type="text"
 							placeholder="Name"
 							name="user_name"
-						/>
-						<input
-							style={{ backgroundColor: darkMode && "#333" }}
-							type="text"
-							placeholder="Subject"
-							name="user_subject"
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+							required
 						/>
 						<input
 							style={{ backgroundColor: darkMode && "#333" }}
 							type="text"
 							placeholder="Email"
 							name="user_email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
 						/>
+
+						<input
+							style={{ backgroundColor: darkMode && "#333" }}
+							type="text"
+							placeholder="Subject"
+							name="user_subject"
+							value={subject}
+							onChange={(e) => setSubject(e.target.value)}
+							required
+						/>
+
 						<textarea
 							style={{ backgroundColor: darkMode && "#333" }}
 							name="message"
 							rows="5"
 							placeholder="Message"
+							value={message}
+							onChange={(e) => setMessage(e.target.value)}
+							required
 						/>
 						<button>Submit</button>
 						{done && "Thank You for Sending a Message!"}
